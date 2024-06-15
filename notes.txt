@@ -1,0 +1,1 @@
+We run 'npm run lint' before pushing our project to Github or deploying it to check if there are any errors in our code.
