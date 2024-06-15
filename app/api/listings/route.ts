@@ -1,6 +1,6 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import prisma from "@/app/libs/prismadb";
-import { NextResponse } from "next/server";
+import getCurrentUser from '@/app/actions/getCurrentUser';
+import prisma from '@/app/libs/prismadb';
+import { NextResponse } from 'next/server';
 
 export const POST = async (request: Request) => {
   const currentUser = await getCurrentUser();
@@ -25,7 +25,7 @@ export const POST = async (request: Request) => {
 
   // Object.keys(body).forEach((value:any) => {
   //     if (!body[value]) {
-  //         NextResponse.error
+  //         NextResponse.error()
   //     }
   // })
 
@@ -40,7 +40,7 @@ export const POST = async (request: Request) => {
     !location ||
     !price
   ) {
-    return NextResponse.error;
+    return NextResponse.error();
   }
 
   const listing = await prisma.listing.create({
