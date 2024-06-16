@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useCallback, useMemo, useState } from "react";
-import useSearchModal from "../../hooks/useSearchModal";
-import Modal from "./Modal";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Range } from "react-date-range";
-import dynamic from "next/dynamic";
-import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
-import qs from "query-string";
-import { formatISO } from "date-fns";
-import Heading from "../Heading";
-import Calendar from "../inputs/Calendar";
-import Counter from "../inputs/Counter";
+import { useCallback, useMemo, useState } from 'react';
+import useSearchModal from '../../hooks/useSearchModal';
+import Modal from './Modal';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Range } from 'react-date-range';
+import dynamic from 'next/dynamic';
+import CountrySelect, { CountrySelectValue } from '../inputs/CountrySelect';
+import qs from 'query-string';
+import { formatISO } from 'date-fns';
+import Heading from '../Heading';
+import Calendar from '../inputs/Calendar';
+import Counter from '../inputs/Counter';
 
 enum STEPS {
   LOCATION = 0,
@@ -26,8 +26,6 @@ const SearchModal = () => {
 
   const searchModal = useSearchModal();
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const [step, setStep] = useState(STEPS.LOCATION);
 
   const [location, setLocation] = useState<CountrySelectValue>();
@@ -38,11 +36,11 @@ const SearchModal = () => {
   const [dateRange, setDateRange] = useState<Range>({
     startDate: new Date(),
     endDate: new Date(),
-    key: "selection",
+    key: 'selection',
   });
 
   const Map = useMemo(
-    () => dynamic(() => import("../Map"), { ssr: false }),
+    () => dynamic(() => import('../Map'), { ssr: false }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [location]
   );
@@ -84,7 +82,7 @@ const SearchModal = () => {
 
     const url = qs.stringifyUrl(
       {
-        url: "/",
+        url: '/',
         query: updatedQuery,
       },
       { skipNull: true }
@@ -110,10 +108,10 @@ const SearchModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.INFO) {
-      return "Search";
+      return 'Search';
     }
 
-    return "Next";
+    return 'Next';
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -121,7 +119,7 @@ const SearchModal = () => {
       return undefined;
     }
 
-    return "Back";
+    return 'Back';
   }, [step]);
 
   let bodyContent = (
@@ -181,11 +179,8 @@ const SearchModal = () => {
     );
   }
 
-  const footerContent = <></>;
-
   return (
     <Modal
-      disabled={isLoading}
       isOpen={searchModal.isOpen}
       title="Filters"
       actionLabel={actionLabel}
@@ -194,7 +189,6 @@ const SearchModal = () => {
       onClose={searchModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
-      footer={footerContent}
     />
   );
 };

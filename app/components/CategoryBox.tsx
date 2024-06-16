@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { IconType } from "react-icons";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-import queryString from "query-string";
+import { IconType } from 'react-icons';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
+import queryString from 'query-string';
 
 interface CategoryBoxProps {
   label: string;
@@ -13,7 +13,7 @@ interface CategoryBoxProps {
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
-  description,
+  description = '',
   icon: Icon,
   label,
   selected,
@@ -35,7 +35,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
       category: label,
     };
 
-    if (searchParams?.get("category") === label) {
+    if (searchParams?.get('category') === label) {
       delete updatedQuery.category;
       // if the category we clicked on has already been selected in the url, we want to reset it i.e remove it from the newest query.
       // so like toggling it on and off
@@ -43,7 +43,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 
     const url = queryString.stringifyUrl(
       {
-        url: "/",
+        url: '/',
         query: updatedQuery,
       },
       { skipNull: true }
@@ -55,8 +55,8 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   return (
     <div
       className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ${
-        selected ? "border-b-neutral-800" : "border-transparent"
-      } ${selected ? "text-neutral-800" : "text-neutral-500"}`}
+        selected ? 'border-b-neutral-800' : 'border-transparent'
+      } ${selected ? 'text-neutral-800' : 'text-neutral-500'}`}
       onClick={handleClick}
     >
       <Icon size={26} />
