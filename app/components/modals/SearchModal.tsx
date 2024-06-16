@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { Suspense, useCallback, useMemo, useState } from 'react';
 import useSearchModal from '../../hooks/useSearchModal';
 import Modal from './Modal';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,6 +12,7 @@ import { formatISO } from 'date-fns';
 import Heading from '../Heading';
 import Calendar from '../inputs/Calendar';
 import Counter from '../inputs/Counter';
+import Loader from '../Loader';
 
 enum STEPS {
   LOCATION = 0,
@@ -180,16 +181,18 @@ const SearchModal = () => {
   }
 
   return (
-    <Modal
-      isOpen={searchModal.isOpen}
-      title="Filters"
-      actionLabel={actionLabel}
-      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
-      secondaryActionLabel={secondaryActionLabel}
-      onClose={searchModal.onClose}
-      onSubmit={onSubmit}
-      body={bodyContent}
-    />
+    <Suspense fallback={<Loader />}>
+      <Modal
+        isOpen={searchModal.isOpen}
+        title="Filters"
+        actionLabel={actionLabel}
+        secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
+        secondaryActionLabel={secondaryActionLabel}
+        onClose={searchModal.onClose}
+        onSubmit={onSubmit}
+        body={bodyContent}
+      />
+    </Suspense>
   );
 };
 

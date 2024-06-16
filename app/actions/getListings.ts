@@ -1,4 +1,5 @@
-import prisma from "../libs/prismadb";
+import { unstable_noStore as noStore } from 'next/cache';
+import prisma from '../libs/prismadb';
 
 export interface IListingParams {
   userId?: string;
@@ -13,6 +14,9 @@ export interface IListingParams {
 
 export default async function getListings(params: IListingParams) {
   try {
+    noStore();
+    // this tells Nextjs to not cache this route as server components are cached by default
+
     const {
       userId,
       bathroomCount,
@@ -72,7 +76,7 @@ export default async function getListings(params: IListingParams) {
     const listings = await prisma.listing.findMany({
       where: query,
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
     const safeListings = listings.map((listing) => ({
